@@ -17,17 +17,14 @@ from qp_deblur import plugin
 @click.option('--env-script', prompt='Environment script',
               default='source activate qp-deblur')
 @click.option('--server-cert', prompt='Server certificate', default='None')
-@click.option('--plugin-coupling',
-              prompt=("Type of coupling of plugin to central for file "
-                      "exchange. Valid values are 'filesystem' and 'https'"),
-                      default='filesystem')
-def config(env_script, server_cert, plugin_coupling):
+@click.argument('plugincoupling', required=False, default='filesystem')
+def config(env_script, server_cert, plugincoupling):
     """Generates the Qiita configuration files"""
     if server_cert == 'None':
         server_cert = None
     plugin.generate_config(env_script, 'start_deblur',
                            server_cert=server_cert,
-                           plugin_coupling=plugin_coupling)
+                           plugin_coupling=plugincoupling)
 
 if __name__ == '__main__':
     config()
