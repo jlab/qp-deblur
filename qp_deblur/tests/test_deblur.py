@@ -15,6 +15,7 @@ from os.path import exists, isdir, join
 from os import environ
 
 from qiita_client.testing import PluginTestCase
+from qiita_client.plugin import BaseQiitaPlugin
 
 from qp_deblur import plugin
 from qp_deblur.deblur import (
@@ -56,6 +57,11 @@ class deblurTests(PluginTestCase):
 
         # saving current value of PATH
         self.oldpath = environ['PATH']
+        
+        # as we access functions directly, plugin configuration is not parsed,
+        # thus resort to environment variable here
+        self.qclient._plugincoupling = environ.get(
+            'QIITA_PLUGINCOUPLING', BaseQiitaPlugin._DEFAULT_PLUGIN_COUPLINGS)
 
     def tearDown(self):
         # restore eventually changed PATH env var
