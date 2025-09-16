@@ -8,7 +8,7 @@
 
 import json
 from unittest import main
-from os import close, remove
+from os import close, remove, environ
 from shutil import copyfile, rmtree
 from tempfile import mkstemp, mkdtemp
 from json import dumps
