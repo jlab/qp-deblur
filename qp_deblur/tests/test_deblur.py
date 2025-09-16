@@ -12,7 +12,6 @@ from shutil import copyfile, rmtree
 from tempfile import mkstemp, mkdtemp
 from json import dumps, load
 from os.path import exists, isdir, join
-from os import environ
 
 from qiita_client.testing import PluginTestCase
 from qiita_client.plugin import BaseQiitaPlugin
@@ -57,7 +56,7 @@ class deblurTests(PluginTestCase):
 
         # saving current value of PATH
         self.oldpath = environ['PATH']
-        
+
         # as we access functions directly, plugin configuration is not parsed,
         # thus resort to environment variable here
         self.qclient._plugincoupling = environ.get(
