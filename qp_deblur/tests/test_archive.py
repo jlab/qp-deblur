@@ -15,7 +15,6 @@ from json import dumps
 from os.path import exists, isdir
 
 from qiita_client.testing import PluginTestCase
-from qiita_client.plugin import BaseQiitaPlugin
 
 from qp_deblur import plugin
 from qp_deblur.deblur import deblur
@@ -64,11 +63,6 @@ class deblurTests(PluginTestCase):
             ('TACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGCGCACGTAGGCGGTTCGTTAAG'
              'CCAGCTGTGAAATCCCCGGGCTCAACCTGGGAATTG')
         ]
-
-        # as we access functions directly, plugin configuration is not parsed,
-        # thus resort to environment variable here
-        self.qclient._plugincoupling = environ.get(
-            'QIITA_PLUGINCOUPLING', BaseQiitaPlugin._DEFAULT_PLUGIN_COUPLINGS)
 
     def tearDown(self):
         for fp in self._clean_up_files:
