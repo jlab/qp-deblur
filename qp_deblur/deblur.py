@@ -457,7 +457,7 @@ def deblur(qclient, job_id, parameters, out_dir):
         n_jobs = int(parameters['Jobs to start'])
         # [0] cause there should be only 1 file
         to_per_sample_files(fps['preprocessed_demux'][0],
-            out_dir=split_out_dir, n_jobs=n_jobs)
+                            out_dir=split_out_dir, n_jobs=n_jobs)
 
         qclient.update_job_step(job_id, "Step 2 of 4: Generating per sample "
                                 "from demux (2/2)")
@@ -468,7 +468,7 @@ def deblur(qclient, job_id, parameters, out_dir):
         qclient.update_job_step(job_id, "Step 2 of 4: Generating deblur "
                                 "command")
         cmd = generate_deblur_workflow_commands(fps['preprocessed_fastq'],
-            out_dir, parameters)
+                                                out_dir, parameters)
 
     # Step 3 execute deblur
     qclient.update_job_step(job_id, "Step 3 of 4: Executing deblur job")
