@@ -16,6 +16,7 @@ from os.path import exists, isdir
 
 from qiita_client.testing import PluginTestCase
 
+
 from qp_deblur import plugin
 from qp_deblur.deblur import deblur
 
