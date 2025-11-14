@@ -428,8 +428,7 @@ def deblur(qclient, job_id, parameters, out_dir):
     # Getting preparation information
     prep_info = qclient.get(
         '/qiita_db/prep_template/%s/' % artifact_info['prep_information'][0])
-    df = pd.read_csv(
-        qclient.fetch_file_from_central(prep_info['prep-file']), sep='\t')
+    df = pd.read_csv(prep_info['prep-file'], sep='\t')
     if prep_info['data_type'] not in {'16S', '18S', 'ITS'}:
         error_msg = ('deblur was developed only for amplicon sequencing data')
         return False, None, error_msg
@@ -457,8 +456,7 @@ def deblur(qclient, job_id, parameters, out_dir):
         # using the same number of parallel jobs as defined by the command
         n_jobs = int(parameters['Jobs to start'])
         # [0] cause there should be only 1 file
-        to_per_sample_files(
-            qclient.fetch_file_from_central(fps['preprocessed_demux'][0]),
+        to_per_sample_files(fps['preprocessed_demux'][0],
             out_dir=split_out_dir, n_jobs=n_jobs)
 
         qclient.update_job_step(job_id, "Step 2 of 4: Generating per sample "
@@ -469,9 +467,7 @@ def deblur(qclient, job_id, parameters, out_dir):
     else:
         qclient.update_job_step(job_id, "Step 2 of 4: Generating deblur "
                                 "command")
-        cmd = generate_deblur_workflow_commands(
-            list(map(qclient.fetch_file_from_central,
-                     fps['preprocessed_fastq'])),
+        cmd = generate_deblur_workflow_commands(fps['preprocessed_fastq'],
             out_dir, parameters)
 
     # Step 3 execute deblur
