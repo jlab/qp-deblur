@@ -586,18 +586,14 @@ def deblur(qclient, job_id, parameters, out_dir):
     else:
         new_placements = None
 
-    ainfo = [
-        ArtifactInfo(
-            'deblur final table', 'BIOM',
-            [(final_biom, 'biom'),
-             (final_seqs, 'preprocessed_fasta')])]
+    ainfo = [ArtifactInfo('deblur final table', 'BIOM',
+                          [(final_biom, 'biom'),
+                           (final_seqs, 'preprocessed_fasta')])]
     if fp_phylogeny is not None:
-        ainfo.append(
-            ArtifactInfo(
-                'deblur reference hit table', 'BIOM',
-                [(final_biom_hit, 'biom'),
-                 (final_seqs_hit, 'preprocessed_fasta'),
-                 (fp_phylogeny, 'plain_text')], new_placements))
+        ainfo.append(ArtifactInfo('deblur reference hit table', 'BIOM',
+                     [(final_biom_hit, 'biom'),
+                      (final_seqs_hit, 'preprocessed_fasta'),
+                      (fp_phylogeny, 'plain_text')], new_placements))
 
     return True, ainfo, ""
 
