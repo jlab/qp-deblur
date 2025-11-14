@@ -589,20 +589,15 @@ def deblur(qclient, job_id, parameters, out_dir):
     ainfo = [
         ArtifactInfo(
             'deblur final table', 'BIOM',
-            [(qclient.push_file_to_central(final_biom),
-              'biom'),
-             (qclient.push_file_to_central(final_seqs),
-              'preprocessed_fasta')])]
+            [(final_biom, 'biom'),
+             (final_seqs, 'preprocessed_fasta')])]
     if fp_phylogeny is not None:
         ainfo.append(
             ArtifactInfo(
                 'deblur reference hit table', 'BIOM',
-                [(qclient.push_file_to_central(final_biom_hit),
-                  'biom'),
-                 (qclient.push_file_to_central(final_seqs_hit),
-                  'preprocessed_fasta'),
-                 (qclient.push_file_to_central(fp_phylogeny),
-                  'plain_text')], new_placements))
+                [(final_biom_hit, 'biom'),
+                 (final_seqs_hit, 'preprocessed_fasta'),
+                 (fp_phylogeny, 'plain_text')], new_placements))
 
     return True, ainfo, ""
 
