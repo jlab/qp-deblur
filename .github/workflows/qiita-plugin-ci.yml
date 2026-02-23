@@ -46,6 +46,7 @@ jobs:
         with:
           repository: qiita-spots/qiita
           ref: dev
+          path: qiita-dev
 
       - name: Basic dependencies install
         env:
