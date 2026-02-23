@@ -96,9 +96,6 @@ jobs:
           sed -i "s/f'Entered BaseQiitaPlugin._register_command({command.name})'/'Entered BaseQiitaPlugin._register_command(%s)' % command.name/"  $CONDA_PREFIX/lib/python3.5/site-packages/qiita_client/plugin.py
           pip --quiet install coveralls
 
-          echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG QIITA_PLUGINS_DIR: >$QIITA_PLUGINS_DIR<" 1>&2
-          configure_deblur --env-script "source /home/runner/.profile; conda activate deblur" --server-cert $QIITA_ROOTCA_CERT
-
           echo "Available Qiita plugins"
           ls ~/.qiita_plugins/
 
@@ -154,6 +151,8 @@ jobs:
           echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG QIITA_PLUGINS_DIR: >$QIITA_PLUGINS_DIR<" 1>&2
           ls -la $QIITA_PLUGINS_DIR 1>&2
           cat $QIITA_PLUGINS_DIR/* 1>&2
+          echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ PLUGIN CONF: >~/.qiita_plugins/deblur_2021.09.conf<" 1>&2
+          cat ~/.qiita_plugins/deblur_2021.09.conf 1>&2
           
           #nosetests --with-doctest --with-coverage --cover-package=qp_deblur
 
