@@ -91,7 +91,6 @@ jobs:
 
           pip --quiet install -U pip
           pip install -U numpy cython coveralls
-          sed -i "s/f'Entered BaseQiitaPlugin._register_command({command.name})'/'Entered BaseQiitaPlugin._register_command(%s)' % command.name/"  $CONDA_PREFIX/lib/python3.5/site-packages/qiita_client/plugin.py
           pip --quiet install .
 
           echo "Available Qiita plugins"
