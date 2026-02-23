@@ -140,10 +140,7 @@ jobs:
           export PYTHONWARNINGS="ignore:Certificate for localhost has no \`subjectAltName\`"
           export ENVIRONMENT="source /home/runner/.profile; conda activate deblur"
 
-          #pytest qp_deblur --doctest-modules --cov=qp_deblur --cov-report=xml && coverage lcov -o coverage.lcov
-          pwd
-          ls -la
-          cd qp-deblur && pytest
+          pytest qp_deblur --doctest-modules --cov=qp_deblur --cov-report=xml && coverage lcov -o coverage.lcov
 
       - uses: codecov/codecov-action@v1
         with:
