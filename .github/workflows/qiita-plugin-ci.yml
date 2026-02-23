@@ -33,13 +33,19 @@ jobs:
     steps:
       # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup for conda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v4
         with:
           auto-update-conda: true
           python-version: 3.9
+
+      - name: Checkout qiita dev codebase
+        uses: actions/checkout@v4
+        with:
+          repository: qiita-spots/qiita
+          ref: dev
 
       - name: Basic dependencies install
         env:
@@ -47,11 +53,6 @@ jobs:
         shell: bash -l {0}
         run: |
           echo "Testing: " $COVER_PACKAGE
-
-          # we need to download qiita directly so we have "easy" access to
-          # all config files
-          wget https://github.com/biocore/qiita/archive/dev.zip
-          unzip dev.zip
 
           # pull out the port so we can modify the configuration file easily
           pgport=${{ job.services.postgres.ports[5432] }}
