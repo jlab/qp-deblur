@@ -93,6 +93,8 @@ jobs:
           pip install -U numpy cython pytest-cov coverage
           pip --quiet install .
 
+          configure_deblur --env-script "source /home/runner/.profile; conda activate deblur" --server-cert $QIITA_ROOTCA_CERT
+
           echo "Available Qiita plugins"
           ls ~/.qiita_plugins/
 
