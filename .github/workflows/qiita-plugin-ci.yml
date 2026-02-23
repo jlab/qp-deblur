@@ -139,18 +139,6 @@ jobs:
           export PYTHONWARNINGS="ignore:Certificate for localhost has no \`subjectAltName\`"
           export ENVIRONMENT="source /home/runner/.profile; conda activate deblur"
 
-          echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG nginx config" 1>&2
-          cat `pwd`/qiita-dev/qiita_pet/nginx_example_local.conf 1>&2
-          echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG qiita config" 1>&2
-          cat `pwd`/qiita-dev/qiita_core/support_files/config_test_local.cfg 1>&2
-          echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG QIITA_ROOTCA_CERT: >$QIITA_ROOTCA_CERT<" 1>&2
-          cat $QIITA_ROOTCA_CERT 1>&2
-          echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG QIITA_CONFIG_FP: >$QIITA_CONFIG_FP<" 1>&2
-          ls -la $QIITA_CONFIG_FP 1>&2
-          echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG QIITA_PLUGINS_DIR: >$QIITA_PLUGINS_DIR<" 1>&2
-          ls -la $QIITA_PLUGINS_DIR 1>&2
-          echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ PLUGIN CONF: >~/.qiita_plugins/deblur_2021.09.conf<" 1>&2
-          
           pytest qp_deblur --doctest-modules --cov=qp_deblur --cov-report=xml && coverage lcov -o coverage.lcov
 
       - uses: codecov/codecov-action@v1
