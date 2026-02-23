@@ -90,7 +90,7 @@ jobs:
           export QIITA_CONFIG_FP=`pwd`/qiita-dev/qiita_core/support_files/config_test_local.cfg
 
           pip --quiet install -U pip
-          pip install -U numpy cython pytest-cov
+          pip install -U numpy cython pytest-cov coverage
           pip --quiet install .
 
           echo "Available Qiita plugins"
@@ -149,7 +149,7 @@ jobs:
           ls -la $QIITA_PLUGINS_DIR 1>&2
           echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ PLUGIN CONF: >~/.qiita_plugins/deblur_2021.09.conf<" 1>&2
           
-          pytest qp_deblur --doctest-modules --cov=qp_deblur --cov-report=lcov --ignore=qp_deblur/data
+          pytest qp_deblur --doctest-modules --cov=qp_deblur --cov-report=xml && coverage lcov -o coverage.lcov
 
       - uses: codecov/codecov-action@v1
         with:
