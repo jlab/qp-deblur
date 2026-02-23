@@ -150,7 +150,9 @@ jobs:
           cat $QIITA_ROOTCA_CERT 1>&2
           echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG QIITA_CONFIG_FP: >$QIITA_CONFIG_FP<" 1>&2
           ls -la $QIITA_CONFIG_FP 1>&2
-          cat $QIITA_CONFIG_FP/* 1>&2
+          echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG QIITA_PLUGINS_DIR: >$QIITA_PLUGINS_DIR<" 1>&2
+          ls -la $QIITA_PLUGINS_DIR 1>&2
+          cat $QIITA_PLUGINS_DIR/* 1>&2
           
           #nosetests --with-doctest --with-coverage --cover-package=qp_deblur
 
