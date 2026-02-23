@@ -142,7 +142,14 @@ jobs:
 
           export PYTHONWARNINGS="ignore:Certificate for localhost has no \`subjectAltName\`"
 
-          nosetests --with-doctest --with-coverage --cover-package=qp_deblur
+          echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG nginx config" 1>&2
+          cat `pwd`/qiita-dev/qiita_pet/nginx_example_local.conf 1>&2
+          echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG qiita config" 1>&2
+          cat `pwd`/qiita-dev/qiita_core/support_files/config_test_local.cfg 1>&2
+          echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG QIITA_ROOTCA_CERT: >$QIITA_ROOTCA_CERT<" 1>&2
+          cat $QIITA_ROOTCA_CERT 1>&2
+          
+          #nosetests --with-doctest --with-coverage --cover-package=qp_deblur
 
       - uses: codecov/codecov-action@v1
         with:
