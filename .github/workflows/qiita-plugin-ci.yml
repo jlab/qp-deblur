@@ -90,7 +90,7 @@ jobs:
           export QIITA_CONFIG_FP=`pwd`/qiita-dev/qiita_core/support_files/config_test_local.cfg
 
           pip --quiet install -U pip
-          pip install -U numpy cython coveralls
+          pip install -U numpy cython pytest-cov
           pip --quiet install .
 
           echo "Available Qiita plugins"
