@@ -82,7 +82,7 @@ jobs:
 
           conda create --quiet --yes -n deblur python=3.5 pip libgfortran=3
           conda activate deblur
-          conda install --quiet --yes -c bioconda -c biocore "VSEARCH=2.7.0" MAFFT=7.310 SortMeRNA=2.0 fragment-insertion gcc numpy cython pandas scikit-bio==0.5.5
+          conda install --quiet --yes -c bioconda -c biocore "VSEARCH=2.7.0" MAFFT=7.310 SortMeRNA=2.0 fragment-insertion gcc numpy cython pandas scikit-bio==0.5.5 biom-format
           pip install -U pip
           pip install pip-system-certs
 
