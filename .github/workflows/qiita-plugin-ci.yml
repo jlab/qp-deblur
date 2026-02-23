@@ -150,7 +150,6 @@ jobs:
           ls -la $QIITA_CONFIG_FP 1>&2
           echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ DEBUG QIITA_PLUGINS_DIR: >$QIITA_PLUGINS_DIR<" 1>&2
           ls -la $QIITA_PLUGINS_DIR 1>&2
-          cat $QIITA_PLUGINS_DIR/* 1>&2
           echo "ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ PLUGIN CONF: >~/.qiita_plugins/deblur_2021.09.conf<" 1>&2
           cat ~/.qiita_plugins/deblur_2021.09.conf 1>&2
           
