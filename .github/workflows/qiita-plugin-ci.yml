@@ -33,7 +33,7 @@ jobs:
     steps:
       # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup for conda
         uses: conda-incubator/setup-miniconda@v2
@@ -41,17 +41,21 @@ jobs:
           auto-update-conda: true
           python-version: 3.9
 
+      # we need to download qiita directly so we have "easy" access to
+      # all config files
+      - name: Checkout qiita dev codebase
+        uses: actions/checkout@v4
+        with:
+          repository: qiita-spots/qiita
+          ref: dev
+          path: qiita-dev
+
       - name: Basic dependencies install
         env:
           COVER_PACKAGE: ${{ matrix.cover_package }}
         shell: bash -l {0}
         run: |
           echo "Testing: " $COVER_PACKAGE
-
-          # we need to download qiita directly so we have "easy" access to
-          # all config files
-          wget https://github.com/biocore/qiita/archive/dev.zip
-          unzip dev.zip
 
           # pull out the port so we can modify the configuration file easily
           pgport=${{ job.services.postgres.ports[5432] }}
@@ -75,20 +79,19 @@ jobs:
       - name: Install Qiita plugins
         shell: bash -l {0}
         run: |
+          # install system wide packages through apt
+          sudo apt-get update && sudo apt-get install -y libpq-dev python3-dev gcc build-essential
+
           conda create --quiet --yes -n deblur python=3.5 pip libgfortran=3
           conda activate deblur
-          conda install --quiet --yes -c bioconda -c biocore "VSEARCH=2.7.0" MAFFT=7.310 SortMeRNA=2.0 fragment-insertion gcc
-          conda install --quiet --yes -c conda-forge -c bioconda scikit-bio==0.5.5 pandas
+          conda install --quiet --yes -c bioconda -c biocore "VSEARCH=2.7.0" MAFFT=7.310 SortMeRNA=2.0 fragment-insertion gcc numpy cython pandas scikit-bio==0.5.5 biom-format
 
           export QIITA_ROOTCA_CERT=`pwd`/qiita-dev/qiita_core/support_files/ci_rootca.crt
           export QIITA_CONFIG_FP=`pwd`/qiita-dev/qiita_core/support_files/config_test_local.cfg
 
-          pip --quiet install -U pip
-          pip install -U numpy cython deblur
+          pip install -U pip
+          pip install -U numpy cython pytest-cov coverage
           pip --quiet install .
-          find / -name "plugin.py" 2> /dev/null && true
-          sed -i "s/f'Entered BaseQiitaPlugin._register_command({command.name})'/'Entered BaseQiitaPlugin._register_command(%s)' % command.name/"  $CONDA_PREFIX/lib/python3.5/site-packages/qiita_client/plugin.py
-          pip --quiet install coveralls
 
           configure_deblur --env-script "source /home/runner/.profile; conda activate deblur" --server-cert $QIITA_ROOTCA_CERT
 
@@ -136,6 +139,7 @@ jobs:
           export QIITA_CONFIG_FP=`pwd`/qiita-dev/qiita_core/support_files/config_test_local.cfg
 
           export PYTHONWARNINGS="ignore:Certificate for localhost has no \`subjectAltName\`"
+          export ENVIRONMENT="source /home/runner/.profile; conda activate deblur"
 
           nosetests --with-doctest --with-coverage --cover-package=qp_deblur
 
