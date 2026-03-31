@@ -7,12 +7,11 @@
 # -----------------------------------------------------------------------------
 
 from unittest import main
-from os import close, remove, chmod
+from os import close, remove, chmod, environ
 from shutil import copyfile, rmtree
 from tempfile import mkstemp, mkdtemp
 from json import dumps, load
 from os.path import exists, isdir, join
-from os import environ
 
 from qiita_client.testing import PluginTestCase
 
